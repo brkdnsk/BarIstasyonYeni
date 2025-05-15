@@ -17,6 +17,8 @@ builder.Services.AddDbContext<BaristasyonDbContext>(options =>
 
 // ✅ Service registration (BU KISIM builder.Build()'DAN ÖNCE OLMALI)
 builder.Services.AddScoped<ICoffeeRecipeService, CoffeeRecipeService>();
+builder.Services.AddScoped<IEquipmentService, EquipmentService>();
+builder.Services.AddScoped<IFavoriteRecipeService, FavoriteRecipeService>();
 
 // ✅ Controller ve Swagger
 builder.Services.AddControllers();
