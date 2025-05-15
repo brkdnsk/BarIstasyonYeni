@@ -14,5 +14,7 @@ namespace Baristasyon.Application.Interfaces.Services
         Task<ResultEquipmentDto> CreateAsync(CreateEquipmentDto dto);
         Task<bool> UpdateAsync(int id, UpdateEquipmentDto dto);
         Task<bool> DeleteAsync(int id);
+        Task<List<ResultEquipmentDto>> GetByNameAsync(string name);
+
     }
 }
