@@ -56,12 +56,6 @@ namespace Baristasyon.APİ.Controllers
                 return NotFound();
             return NoContent();
         }
-        public async Task<IActionResult> Deleteee(int id)
-        {
-            var success = await _recipeService.DeleteAsync(id);
-            if (!success)
-                return NotFound();
-            return NoContent();
-        }
+       
     }
 }
