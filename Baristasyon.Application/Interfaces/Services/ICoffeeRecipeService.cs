@@ -15,6 +15,11 @@ namespace Baristasyon.Application.Interfaces.Services
         Task<ResultCoffeeRecipeDto> CreateAsync(CreateCoffeeRecipeDto dto);
         Task<bool> UpdateAsync(int id, UpdateCoffeeRecipeDto dto);
         Task<bool> DeleteAsync(int id);
+        Task<List<ResultCoffeeRecipeDto>> GetByBrewMethodAsync(string method);
+        Task<List<ResultCoffeeRecipeDto>> SearchByKeywordAsync(string keyword);
+        Task<List<ResultCoffeeRecipeDto>> GetTopFavoriteRecipesAsync(int count);
+
+
     }
 }
 

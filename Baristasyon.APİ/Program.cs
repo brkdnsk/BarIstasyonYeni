@@ -19,6 +19,8 @@ builder.Services.AddDbContext<BaristasyonDbContext>(options =>
 builder.Services.AddScoped<ICoffeeRecipeService, CoffeeRecipeService>();
 builder.Services.AddScoped<IEquipmentService, EquipmentService>();
 builder.Services.AddScoped<IFavoriteRecipeService, FavoriteRecipeService>();
+builder.Services.AddScoped<IJobPostService, JobPostService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 // ✅ Controller ve Swagger
 builder.Services.AddControllers();

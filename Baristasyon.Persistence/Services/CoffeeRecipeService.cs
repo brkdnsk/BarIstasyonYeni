@@ -62,6 +62,42 @@ namespace Baristasyon.Persistence.Services
             await _context.SaveChangesAsync();
             return true;
         }
+        public async Task<List<ResultCoffeeRecipeDto>> GetByBrewMethodAsync(string method)
+        {
+            var filtered = await _context.CoffeeRecipes
+                .Where(x => x.Method.ToLower().Contains(method.ToLower()))
+                .ToListAsync();
+
+            return _mapper.Map<List<ResultCoffeeRecipeDto>>(filtered);
+        }
+        public async Task<List<ResultCoffeeRecipeDto>> SearchByKeywordAsync(string keyword)
+        {
+            var results = await _context.CoffeeRecipes
+                .Where(x =>
+                    x.Title.ToLower().Contains(keyword.ToLower()) ||
+                    x.Description.ToLower().Contains(keyword.ToLower()) ||
+                    x.Ingredients.ToLower().Contains(keyword.ToLower()))
+                .ToListAsync();
+
+            return _mapper.Map<List<ResultCoffeeRecipeDto>>(results);
+        }
+        public async Task<List<ResultCoffeeRecipeDto>> GetTopFavoriteRecipesAsync(int count)
+        {
+            var topRecipeIds = await _context.FavoriteRecipes
+                .GroupBy(f => f.CoffeeRecipeId)
+                .OrderByDescending(g => g.Count())
+                .Take(count)
+                .Select(g => g.Key)
+                .ToListAsync();
+
+            var topRecipes = await _context.CoffeeRecipes
+                .Where(r => topRecipeIds.Contains(r.Id))
+                .ToListAsync();
+
+            return _mapper.Map<List<ResultCoffeeRecipeDto>>(topRecipes);
+        }
+
+
     }
-    }
+}
 

@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Baristasyon.Application\Baristasyon.Application.csproj" />
+    <ProjectReference Include="..\Baristasyon.Domain\Baristasyon.Domain.csproj" />
     <ProjectReference Include="..\Baristasyon.Persistence\Baristasyon.Persistence.csproj" />
   </ItemGroup>
 
