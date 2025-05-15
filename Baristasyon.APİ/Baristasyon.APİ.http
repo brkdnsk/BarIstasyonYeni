@@ -1,0 +1,6 @@
+@Baristasyon.APİ_HostAddress = http://localhost:5220
+
+GET {{Baristasyon.APİ_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
