@@ -61,5 +61,37 @@ namespace Baristasyon.Persistence.Services
             var users = await _context.Users.ToListAsync();
             return _mapper.Map<List<ResultUserDto>>(users);
         }
+        public async Task<bool> UpdatePasswordAsync(UpdatePasswordDto dto)
+        {
+            var user = await _context.Users.FindAsync(dto.UserId);
+            if (user == null) return false;
+
+            var valid = BCrypt.Net.BCrypt.Verify(dto.CurrentPassword, user.PasswordHash);
+            if (!valid) return false;
+
+            user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.NewPassword);
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
+        public async Task<bool> UpdateProfileAsync(UpdateUserProfileDto dto)
+        {
+            var user = await _context.Users.FindAsync(dto.UserId);
+            if (user == null) return false;
+
+            user.Username = dto.Username;
+            user.Bio = dto.Bio;
+            user.AvatarUrl = dto.AvatarUrl;
+
+            await _context.SaveChangesAsync();
+            return true;
+        }
+        public async Task<bool> CheckEmailExistsAsync(string email)
+        {
+            return await _context.Users.AnyAsync(u => u.Email.ToLower() == email.ToLower());
+        }
+
+
+
     }
 }

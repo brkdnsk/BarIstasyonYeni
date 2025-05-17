@@ -62,5 +62,39 @@ namespace Baristasyon.Persistence.Services
             await _context.SaveChangesAsync();
             return true;
         }
+        public async Task<List<ResultEquipmentDto>> GetByNameAsync(string name)
+        {
+            var equipments = await _context.Equipments
+                .Where(e => e.Name.ToLower().Contains(name.ToLower()))
+                .ToListAsync();
+
+            return _mapper.Map<List<ResultEquipmentDto>>(equipments);
+        }
+        public async Task<List<ResultEquipmentDto>> SearchByUsageAsync(string usage)
+        {
+            var results = await _context.Equipments
+                .Where(e => e.Usage.ToLower().Contains(usage.ToLower()))
+                .ToListAsync();
+
+            return _mapper.Map<List<ResultEquipmentDto>>(results);
+        }
+        public async Task<List<ResultEquipmentDto>> GetRecommendedEquipmentsAsync(int count)
+        {
+            var totalCount = await _context.Equipments.CountAsync();
+
+            if (totalCount == 0)
+                return new List<ResultEquipmentDto>();
+
+            var skip = new Random().Next(0, Math.Max(0, totalCount - count));
+
+            var equipments = await _context.Equipments
+                .Skip(skip)
+                .Take(count)
+                .ToListAsync();
+
+            return _mapper.Map<List<ResultEquipmentDto>>(equipments);
+        }
+
+
     }
 }

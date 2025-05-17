@@ -62,5 +62,33 @@ namespace Baristasyon.Persistence.Services
             await _context.SaveChangesAsync();
             return true;
         }
+        public async Task<List<ResultJobPostDto>> GetByLocationAsync(string location)
+        {
+            var posts = await _context.JobPosts
+                .Where(p => p.Location.ToLower().Contains(location.ToLower()))
+                .ToListAsync();
+
+            return _mapper.Map<List<ResultJobPostDto>>(posts);
+        }
+        public async Task<List<ResultJobPostDto>> SearchByCompanyAsync(string companyName)
+        {
+            var posts = await _context.JobPosts
+                .Where(p => p.CompanyName.ToLower().Contains(companyName.ToLower()))
+                .ToListAsync();
+
+            return _mapper.Map<List<ResultJobPostDto>>(posts);
+        }
+        public async Task<List<ResultJobPostDto>> GetRecentPostsAsync(int count)
+        {
+            var recentPosts = await _context.JobPosts
+                .OrderByDescending(p => p.PostedAt)
+                .Take(count)
+                .ToListAsync();
+
+            return _mapper.Map<List<ResultJobPostDto>>(recentPosts);
+        }
+
+
+
     }
 }
