@@ -13,5 +13,9 @@ namespace Baristasyon.Application.Interfaces.Services
         Task<ResultUserDto?> LoginAsync(LoginUserDto dto);
         Task<ResultUserDto?> GetByIdAsync(int id);
         Task<List<ResultUserDto>> GetAllAsync();
+        Task<bool> UpdatePasswordAsync(UpdatePasswordDto dto);
+        Task<bool> UpdateProfileAsync(UpdateUserProfileDto dto);
+        Task<bool> CheckEmailExistsAsync(string email);
+
     }
 }

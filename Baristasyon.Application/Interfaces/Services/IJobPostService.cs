@@ -14,5 +14,9 @@ namespace Baristasyon.Application.Interfaces.Services
         Task<ResultJobPostDto> CreateAsync(CreateJobPostDto dto);
         Task<bool> UpdateAsync(int id, UpdateJobPostDto dto);
         Task<bool> DeleteAsync(int id);
+        Task<List<ResultJobPostDto>> GetByLocationAsync(string location);
+        Task<List<ResultJobPostDto>> SearchByCompanyAsync(string companyName);
+        Task<List<ResultJobPostDto>> GetRecentPostsAsync(int count);
+
     }
 }

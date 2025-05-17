@@ -51,5 +51,28 @@ namespace Baristasyon.APİ.Controllers
                 return NotFound();
             return Ok(user);
         }
+        [HttpPost("update-password")]
+        public async Task<IActionResult> UpdatePassword([FromBody] UpdatePasswordDto dto)
+        {
+            var success = await _userService.UpdatePasswordAsync(dto);
+            if (!success) return BadRequest("Mevcut şifre hatalı veya kullanıcı bulunamadı.");
+            return Ok("Şifre başarıyla güncellendi.");
+        }
+        [HttpPost("update-profile")]
+        public async Task<IActionResult> UpdateProfile([FromBody] UpdateUserProfileDto dto)
+        {
+            var success = await _userService.UpdateProfileAsync(dto);
+            if (!success) return NotFound("Kullanıcı bulunamadı.");
+            return Ok("Profil başarıyla güncellendi.");
+        }
+        [HttpGet("check-email")]
+        public async Task<IActionResult> CheckEmail([FromQuery] string email)
+        {
+            var exists = await _userService.CheckEmailExistsAsync(email);
+            return Ok(new { exists });
+        }
+
+
+
     }
 }

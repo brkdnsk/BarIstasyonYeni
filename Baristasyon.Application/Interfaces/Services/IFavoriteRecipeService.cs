@@ -14,5 +14,9 @@ namespace Baristasyon.Application.Interfaces.Services
         Task<ResultFavoriteRecipeDto> CreateAsync(CreateFavoriteRecipeDto dto);
         Task<bool> UpdateAsync(int id, UpdateFavoriteRecipeDto dto);
         Task<bool> DeleteAsync(int id);
+        Task<List<ResultFavoriteRecipeDto>> GetByUserIdAsync(int userId);
+        Task<bool> IsFavoriteAsync(int userId, int recipeId);
+        Task<bool> ToggleFavoriteAsync(int userId, int recipeId);
+
     }
 }

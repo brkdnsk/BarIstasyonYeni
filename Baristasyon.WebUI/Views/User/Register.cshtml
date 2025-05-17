@@ -1,0 +1,75 @@
+﻿@model Baristasyon.Application.Dtos.RegisterUserDto
+@{
+    ViewData["Title"] = "Kayıt Ol";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-coffee text-white">
+                <h4 class="mb-0">
+                    <i class="fa-solid fa-user-plus me-1"></i> Kayıt Ol
+                </h4>
+            </div>
+            <div class="card-body">
+                <form asp-action="Register" method="post">
+                    <div class="mb-3">
+                        <label asp-for="Username" class="form-label">👤 Kullanıcı Adı</label>
+                        <input asp-for="Username" class="form-control" placeholder="baristayigit" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Email" class="form-label">📧 Email</label>
+                        <input asp-for="Email" class="form-control" placeholder="ornek@baristasyon.com" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Password" class="form-label">🔑 Şifre</label>
+                        <input asp-for="Password" type="password" class="form-control" placeholder="••••••••" />
+                    </div>
+
+                    <div class="d-grid mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fa-solid fa-paper-plane me-1"></i> Kayıt Ol
+                        </button>
+                    </div>
+                </form>
+
+                @if (ViewBag.Error != null)
+                {
+                    <div class="alert alert-danger mt-4">@ViewBag.Error</div>
+                }
+
+                <div class="text-center mt-4 small">
+                    Zaten hesabınız var mı? <a href="/User/Login" class="text-coffee fw-semibold">Giriş Yap</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-coffee {
+        background-color: #6f4e37;
+    }
+
+    .text-coffee {
+        color: #6f4e37;
+    }
+
+    input:focus {
+        border-color: #6f4e37;
+        box-shadow: 0 0 0 0.15rem rgba(111, 78, 55, 0.25);
+    }
+
+    .btn-primary {
+        background-color: #6f4e37;
+        border-color: #6f4e37;
+    }
+
+        .btn-primary:hover {
+            background-color: #59382e;
+            border-color: #59382e;
+        }
+</style>

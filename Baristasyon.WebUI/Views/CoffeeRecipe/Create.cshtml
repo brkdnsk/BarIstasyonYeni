@@ -1,0 +1,75 @@
+﻿@model Baristasyon.Application.Dtos.CreateCoffeeRecipeDto
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-coffee text-white">
+                <h4 class="mb-0"><i class="fa-solid fa-mug-hot me-2"></i>Yeni Kahve Tarifi</h4>
+            </div>
+            <div class="card-body">
+                <form asp-action="Create" method="post">
+                    <div class="mb-3">
+                        <label asp-for="Title" class="form-label">Başlık</label>
+                        <input asp-for="Title" class="form-control" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Description" class="form-label">Açıklama</label>
+                        <textarea asp-for="Description" class="form-control"></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Method" class="form-label">Demleme Yöntemi</label>
+                        <input asp-for="Method" class="form-control" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="BrewTime" class="form-label">Süre (dk)</label>
+                        <input asp-for="BrewTime" type="number" class="form-control" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Ingredients" class="form-label">Malzemeler</label>
+                        <textarea asp-for="Ingredients" class="form-control" rows="3" placeholder="Kahve, su, filtre kağıdı..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-success">
+                        <i class="fa fa-plus me-1"></i> Kaydet
+                    </button>
+                </form>
+
+
+                @if (ViewBag.Error != null)
+                {
+                    <div class="alert alert-danger mt-3">@ViewBag.Error</div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-coffee {
+        background-color: #6f4e37;
+    }
+
+    input:focus, textarea:focus {
+        border-color: #6f4e37;
+        box-shadow: 0 0 0 0.2rem rgba(111, 78, 55, 0.25);
+    }
+
+    .btn-success {
+        background-color: #4b2e2e;
+        border-color: #4b2e2e;
+    }
+
+        .btn-success:hover {
+            background-color: #3a2424;
+            border-color: #3a2424;
+        }
+</style>    
+

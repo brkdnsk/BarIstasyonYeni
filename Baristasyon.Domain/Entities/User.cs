@@ -11,7 +11,13 @@ namespace Baristasyon.Domain.Entities
         public int Id { get; set; }
         public string Username { get; set; } = null!;
         public string Email { get; set; } = null!;
+
+        public string? Bio { get; set; }
+
         public string PasswordHash { get; set; } = null!;
-        public string Role { get; set; } = "user"; // "admin", "barista", "employer"
+        public string Role { get; set; } = "user";
+
+        public string? AvatarUrl { get; set; }
+        // "admin", "barista", "employer"
     }
 }

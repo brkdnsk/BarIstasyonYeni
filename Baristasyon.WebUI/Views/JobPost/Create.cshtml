@@ -1,0 +1,83 @@
+﻿@model Baristasyon.Application.Dtos.CreateJobPostDto
+@{
+    ViewData["Title"] = "Yeni İlan Ekle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-8">
+        <div class="card border-0 shadow-lg job-create-card">
+            <div class="card-header text-white" style="background: linear-gradient(90deg, #0d6efd, #6610f2);">
+                <h4 class="mb-0"><i class="fa-solid fa-plus me-2"></i> Yeni İş İlanı Ekle</h4>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    <div class="mb-3">
+                        <label asp-for="Title" class="form-label">📌 İlan Başlığı</label>
+                        <input asp-for="Title" class="form-control" placeholder="Örn: Kıdemli Barista" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="CompanyName" class="form-label">🏢 Firma Adı</label>
+                        <input asp-for="CompanyName" class="form-control" placeholder="Örn: Kahve Atölyesi A.Ş." />
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Location" class="form-label">📍 Konum</label>
+                        <input asp-for="Location" class="form-control" placeholder="İstanbul / Kadıköy" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="ContactEmail" class="form-label">📧 İletişim Email</label>
+                        <input asp-for="ContactEmail" class="form-control" placeholder="ornek@firma.com" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Description" class="form-label">📝 Açıklama</label>
+                        <textarea asp-for="Description" class="form-control" rows="5" placeholder="İlanın tüm detaylarını buraya yazınız..."></textarea>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Index" class="btn btn-outline-secondary shadow-sm">
+                            <i class="fa-solid fa-arrow-left me-1"></i> Geri Dön
+                        </a>
+
+                        <button type="submit" class="btn btn-primary shadow-sm">
+                            <i class="fa-solid fa-paper-plane me-1"></i> Kaydet
+                        </button>
+                    </div>
+                </form>
+
+                @if (ViewBag.Error != null)
+                {
+                    <div class="alert alert-danger mt-4">@ViewBag.Error</div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .job-create-card {
+        border-radius: 14px;
+        transition: all 0.3s ease;
+    }
+
+        .job-create-card:hover {
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+        }
+
+    .form-control:focus {
+        border-color: #6f42c1;
+        box-shadow: 0 0 0 0.2rem rgba(111, 66, 193, 0.25);
+    }
+
+    .btn-primary:hover {
+        background-color: #0b5ed7;
+        border-color: #0a58ca;
+    }
+
+    .btn-outline-secondary:hover {
+        background-color: #e9ecef;
+    }
+</style>

@@ -62,5 +62,43 @@ namespace Baristasyon.Persistence.Services
             await _context.SaveChangesAsync();
             return true;
         }
+        public async Task<List<ResultFavoriteRecipeDto>> GetByUserIdAsync(int userId)
+        {
+            var favorites = await _context.FavoriteRecipes
+                .Where(f => f.UserId == userId)
+                .ToListAsync();
+
+            return _mapper.Map<List<ResultFavoriteRecipeDto>>(favorites);
+        }
+        public async Task<bool> IsFavoriteAsync(int userId, int recipeId)
+        {
+            return await _context.FavoriteRecipes
+                .AnyAsync(f => f.UserId == userId && f.CoffeeRecipeId == recipeId);
+        }
+        public async Task<bool> ToggleFavoriteAsync(int userId, int recipeId)
+        {
+            var existing = await _context.FavoriteRecipes
+                .FirstOrDefaultAsync(f => f.UserId == userId && f.CoffeeRecipeId == recipeId);
+
+            if (existing != null)
+            {
+                _context.FavoriteRecipes.Remove(existing);
+                await _context.SaveChangesAsync();
+                return false; // çıkarıldı
+            }
+
+            var newFavorite = new FavoriteRecipe
+            {
+                UserId = userId,
+                CoffeeRecipeId = recipeId,
+                AddedAt = DateTime.UtcNow
+            };
+
+            _context.FavoriteRecipes.Add(newFavorite);
+            await _context.SaveChangesAsync();
+            return true; // eklendi
+        }
+
+
     }
 }
