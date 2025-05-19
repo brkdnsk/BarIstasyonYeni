@@ -15,6 +15,8 @@ namespace Baristasyon.Persistence.Contexts
         public DbSet<JobPost> JobPosts => Set<JobPost>();
         public DbSet<User> Users => Set<User>();
         public DbSet<FavoriteRecipe> FavoriteRecipes => Set<FavoriteRecipe>();
+        public DbSet<Review> Reviews { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

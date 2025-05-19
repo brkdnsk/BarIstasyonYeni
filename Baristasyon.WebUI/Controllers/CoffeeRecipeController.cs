@@ -1,4 +1,5 @@
 ﻿using Baristasyon.Application.Dtos;
+using Baristasyon.WebUI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net.Http;
@@ -45,6 +46,37 @@ namespace Baristasyon.WebUI.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+        public async Task<IActionResult> Details(int id)
+        {
+            var client = _httpClientFactory.CreateClient("api");
+
+            var recipeResponse = await client.GetAsync($"coffeerecipe/{id}");
+            var reviewResponse = await client.GetAsync($"review/recipe/{id}");
+
+            if (!recipeResponse.IsSuccessStatusCode)
+                return NotFound();
+
+            var recipeJson = await recipeResponse.Content.ReadAsStringAsync();
+            var reviewJson = await reviewResponse.Content.ReadAsStringAsync();
+
+            var viewModel = new CoffeeRecipeDetailViewModel
+            {
+                Recipe = JsonConvert.DeserializeObject<ResultCoffeeRecipeDto>(recipeJson)!,
+                Reviews = JsonConvert.DeserializeObject<List<ResultReviewDto>>(reviewJson)!,
+                NewReview = new CreateReviewDto { CoffeeRecipeId = id, UserId = 1 } // ← örnek userId
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddReview(CreateReviewDto dto)
+        {
+            var client = _httpClientFactory.CreateClient("api");
+            var response = await client.PostAsJsonAsync("review", dto);
+
+            return RedirectToAction("Details", new { id = dto.CoffeeRecipeId });
         }
 
     }

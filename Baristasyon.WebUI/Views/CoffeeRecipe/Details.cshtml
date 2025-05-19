@@ -1,0 +1,59 @@
+﻿@model CoffeeRecipeDetailViewModel
+@{
+    ViewData["Title"] = Model.Recipe.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+            <h3 class="fw-bold">@Model.Recipe.Title</h3>
+            <p>@Model.Recipe.Description</p>
+            <p><strong>Demleme:</strong> @Model.Recipe.Method</p>
+            <p><strong>Süre:</strong> @Model.Recipe.BrewTime dakika</p>
+        </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-light">
+            <h5 class="mb-0">💬 Yorumlar</h5>
+        </div>
+        <div class="card-body">
+            @if (Model.Reviews.Any())
+            {
+                foreach (var comment in Model.Reviews)
+                {
+                    <div class="border-bottom pb-2 mb-2">
+                        <div class="fw-semibold">@comment.Username</div>
+                        <div class="text-muted small">@comment.CreatedAt.ToString("dd MMM yyyy HH:mm")</div>
+                        <p class="mb-0">@comment.Comment</p>
+                    </div>
+                }
+            }
+            else
+            {
+                <p class="text-muted">Henüz yorum yapılmamış.</p>
+            }
+        </div>
+    </div>
+
+    <div class="card shadow-sm mb-5">
+        <div class="card-header bg-light">
+            <h5 class="mb-0">📝 Yorum Ekle</h5>
+        </div>
+        <div class="card-body">
+            <form asp-action="AddReview" method="post">
+                <input type="hidden" asp-for="NewReview.UserId" />
+                <input type="hidden" asp-for="NewReview.CoffeeRecipeId" />
+
+                <div class="mb-3">
+                    <textarea asp-for="NewReview.Comment" class="form-control" placeholder="Yorumunuzu yazın..." rows="4"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa-solid fa-paper-plane me-1"></i> Gönder
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
